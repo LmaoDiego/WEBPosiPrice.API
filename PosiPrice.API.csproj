@@ -9,11 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Models\" />
     <Folder Include="Domain\Repositories\" />
     <Folder Include="Domain\Persistence\" />
     <Folder Include="Domain\Services\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Mapping\" />
     <Folder Include="Resources\" />
     <Folder Include="Persistence\" />
