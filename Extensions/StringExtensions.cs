@@ -4,7 +4,7 @@ namespace PosiPrice.API.Domain.Models
 {
     public static class StringExtension
     {
-        // SssSsss, sss_ssss
+        // SssSsss, sss_ssss -SnakeCase
         public static string ToSnakeCase(this string str)
         {
             return string.Concat(
