@@ -12,25 +12,48 @@ namespace PosiPrice.API.Services
     {
         private readonly ICategoryRepository _categoryRepository;
         public readonly IUnitOfWork _unitOfWork;
+
+
         public CategoryService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public Task<CategoryResponse> DeleteAsync(int id)
+        public async Task<CategoryResponse> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var existingCategory = await _categoryRepository.FindById(id);
+
+            if (existingCategory == null)
+                return new CategoryResponse("Category Not Found");
+
+            try
+            {
+                _categoryRepository.Remove(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new CategoryResponse(existingCategory);
+            }
+            catch (Exception ex)
+            {
+                return new CategoryResponse($"An error ocurred while deleting category: {ex.Message}");
+            }
+
         }
 
-        public Task<CategoryResponse> GetByIdAsync(int id)
+        public async Task<CategoryResponse> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var existingCategory = await _categoryRepository.FindById(id);
+
+            if (existingCategory == null)
+                return new CategoryResponse("Category Not Found");
+
+            return new CategoryResponse(existingCategory);
         }
 
-        public Task<IEnumerable<Category>> ListAsync()
+        public async Task<IEnumerable<Category>> ListAsync()
         {
-            throw new NotImplementedException();
+            return await _categoryRepository.ListAsync();
         }
 
         public async Task<CategoryResponse> SaveAsync(Category category)
@@ -44,13 +67,30 @@ namespace PosiPrice.API.Services
             }
             catch (Exception ex)
             {
-                return new CategoryResponse($"An error ocurred while saving the category :{ex.Message}");
+                return new CategoryResponse($"An error ocurred while saving the category: {ex.Message}");
             }
         }
 
-        public Task<CategoryResponse> UpdateAsync(int id, Category category)
+        public async Task<CategoryResponse> UpdateAsync(int id, Category category)
         {
-            throw new NotImplementedException();
+            var existingCategory = await _categoryRepository.FindById(id);
+
+            if (existingCategory == null)
+                return new CategoryResponse("Category Not Found");
+
+            existingCategory.Name = category.Name;
+
+            try
+            {
+                _categoryRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new CategoryResponse(existingCategory);
+            }
+            catch (Exception ex)
+            {
+                return new CategoryResponse($"An error ocurred while updating category: {ex.Message}");
+            }
         }
     }
 }

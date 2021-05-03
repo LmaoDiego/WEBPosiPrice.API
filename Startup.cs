@@ -2,11 +2,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PosiPrice.API.Domain.Persistence.Contexts;
+using PosiPrice.API.Domain.Persistence.Repositories;
+using PosiPrice.API.Persitence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +32,19 @@ namespace PosiPrice.API
         {
 
             services.AddControllers();
+            ////Context Configuration
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PosiPrice.API", Version = "v1" });
             });
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
