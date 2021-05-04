@@ -9,6 +9,7 @@ using AutoMapper;
 using PosiPrice.API.Domain.Models;
 using PosiPrice.API.Resources;
 using PosiPrice.API.Extensions;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PosiPrice.API.Controllers
 {   

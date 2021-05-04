@@ -12,7 +12,11 @@ namespace PosiPrice.API.Domain.Persistence.Contexts
         public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
-        
+        public DbSet<User> Users { get; set; }
+        //N-N
+        public DbSet<UserVote> UserVotes { get; set; }
+        public DbSet<Vote> Votes { get; set; }
+
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -36,24 +40,24 @@ namespace PosiPrice.API.Domain.Persistence.Contexts
 
             //1 Initial Data
 
-            builder.Entity<Category>().HasData
+            /*builder.Entity<Category>().HasData
                 (
                     new Category
                     {
                         Id = 100,
-                        Name = "Fruits and Vegetables"
+                        Name = "RTX Nvidia"
 
                     },
                     new Category
                     {
                         Id = 101,
-                        Name = "Dairy"
+                        Name = "Radeon"
                     }
 
 
 
-                ) ;
-
+               ) ;*/
+            
             //2 Product Entity
             builder.Entity<Product>().ToTable("Products");
             //2 Constraints
@@ -66,26 +70,26 @@ namespace PosiPrice.API.Domain.Persistence.Contexts
 
 
             //2 Initial Data
-            builder.Entity<Product>().HasData
+           /* builder.Entity<Product>().HasData
                 (
                     new Product
                     {
                         Id = 100,
-                        Name = "Apple",
+                        Name = "3070 TI",
                         QuantityInPackage = 1,
                         UnitOfMeasurement = EUnitOfMeasurement.Unity,
                         CategoryId = 100
                     },
                     new Product
                     {
-                        Id = 100,
-                        Name = "Milk",
+                        Id = 101,
+                        Name = "6700XT",
                         QuantityInPackage = 2,
                         UnitOfMeasurement = EUnitOfMeasurement.Liter,
                         CategoryId = 101
                     }
-                );
-
+                );*/
+            
             //3 Tag Entity
             builder.Entity<Tag>().ToTable("Tags");
             //3 Constraints
@@ -118,8 +122,84 @@ namespace PosiPrice.API.Domain.Persistence.Contexts
             //5 Naming Conventions Policy
 
             builder.ApplySnakeCaseNamingConvention();
+            //6
+            //6 User Entity
+            builder.Entity<User>().ToTable("Users");
+            //6 Constraints
+            builder.Entity<User>().HasKey(p => p.Id);
+            builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(50);
+            builder.Entity<User>().Property(p => p.QuantityInPackage).IsRequired();
+            builder.Entity<User>().Property(p => p.UnitOfMeasurement).IsRequired();
+            //6 RelationShips
+
+
+            //6 Initial Data
+            /* builder.Entity<Product>().HasData
+                 (
+                     new Product
+                     {
+                         Id = 100,
+                         Name = "3070 TI",
+                         QuantityInPackage = 1,
+                         UnitOfMeasurement = EUnitOfMeasurement.Unity,
+                         CategoryId = 100
+                     },
+                     new Product
+                     {
+                         Id = 101,
+                         Name = "6700XT",
+                         QuantityInPackage = 2,
+                         UnitOfMeasurement = EUnitOfMeasurement.Liter,
+                         CategoryId = 101
+                     }
+                 );*/
+            //
+            //7 Tag Entity
+            builder.Entity<Vote>().ToTable("Votes");
+            //7 Constraints
+            builder.Entity<Vote>().HasKey(p => p.Id);
+            builder.Entity<Vote>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Vote>().Property(p => p.Name).IsRequired().HasMaxLength(30);
+            //7 Tag RelationShip
+            //7 Initial Data
+            //
+          
+             builder.Entity<User>().HasData
+                 (
+                     new User
+                     {
+                         Id = 200,
+                         Name = "Juan Peralta",
+                         QuantityInPackage = 1,
+                         UnitOfMeasurement = EUnitOfMeasurement.Unity,
+                         CategoryId = 1
+                     }
+                     
+                 );
+            //
+            // 8 ProductTagEntity
+
+            //posible error
+            builder.Entity<User>().ToTable("UserVotes");
+
+            // 8  ProductTagConstraints
+            builder.Entity<UserVote>().HasKey(p => new { p.UserId, p.VoteId });
+            //8 Tag RelationShip
+            /// N N
+            builder.Entity<UserVote>()
+                .HasOne(pt => pt.User)
+                .WithMany(p => p.UserVotes)
+                .HasForeignKey(pt => pt.UserId);
+            //
+            builder.Entity<UserVote>()
+                .HasOne(pt => pt.Vote)
+                .WithMany(t => t.UserVotes)
+                .HasForeignKey(pt => pt.VoteId);
+            //8 Initial Data
 
         }
+
     }
     
 }
