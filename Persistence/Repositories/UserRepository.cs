@@ -16,17 +16,36 @@ namespace PosiPrice.API.Persitence.Repositories
 
         }
 
-        public async Task<IEnumerable<User>> ListAsync()
+        public async Task<User> FindById(int id)
         {
-            return await _context.Users.Include(p => p.Category).ToListAsync();
+            return await _context.Users.FindAsync(id);
         }
 
-        public async Task<IEnumerable<User>> ListByCategoryIdAsync(int categoryId)
+        
+
+       
+
+
+        //
+        public async Task AddAsync(User user)
         {
-            return await _context.Users
-                .Where(p => p.CategoryId == categoryId)
-                .Include(p => p.Category)
-                .ToListAsync();
+            await _context.Users.AddAsync(user);
+        }
+
+
+        public async Task<IEnumerable<User>> ListAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public void Remove(User user)
+        {
+            _context.Users.Remove(user);
+        }
+
+        public void Update(User user)
+        {
+            _context.Users.Update(user);
         }
     }
 }

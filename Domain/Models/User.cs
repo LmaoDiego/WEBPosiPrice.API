@@ -10,14 +10,7 @@ namespace PosiPrice.API.Domain.Models
 
         //Para que se pueda guardar en un base de datos
 
-        public EUnitOfMeasurement UnitOfMeasurement { get; set; }
-
-        public short QuantityInPackage { get; set; }
-
-        // Una Categoria 1....... N Productos
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
-
+       
         //El producto N.... N Tags
         public List<UserVote> UserVotes { get; set; }
 

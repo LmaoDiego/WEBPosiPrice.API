@@ -129,8 +129,7 @@ namespace PosiPrice.API.Domain.Persistence.Contexts
             builder.Entity<User>().HasKey(p => p.Id);
             builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(50);
-            builder.Entity<User>().Property(p => p.QuantityInPackage).IsRequired();
-            builder.Entity<User>().Property(p => p.UnitOfMeasurement).IsRequired();
+           
             //6 RelationShips
 
 
@@ -165,22 +164,22 @@ namespace PosiPrice.API.Domain.Persistence.Contexts
             //7 Initial Data
             //
           
-             builder.Entity<User>().HasData
+             /*builder.Entity<User>().HasData
                  (
                      new User
                      {
                          Id = 200,
                          Name = "Juan Peralta",
-                         QuantityInPackage = 1,
-                         UnitOfMeasurement = EUnitOfMeasurement.Unity,
+                         
+                         
                          CategoryId = 1
                      }
                      
-                 );
+                 );*/
             //
             // 8 ProductTagEntity
 
-            //posible error
+            //posible error REMEM
             builder.Entity<User>().ToTable("UserVotes");
 
             // 8  ProductTagConstraints

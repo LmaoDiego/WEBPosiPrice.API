@@ -9,7 +9,13 @@ namespace PosiPrice.API.Domain.Services
     public interface IUserService
     {
         Task<IEnumerable<User>> ListAsync();
-        Task<IEnumerable<User>> ListByCategoryIdAsync(int categoryId);
+        
         Task<IEnumerable<User>> ListByVoteIdAsync(int voteId);
+
+        Task<UserResponse> GetByIdAsync(int id);
+
+        Task<UserResponse> SaveAsync(User user);
+        Task<UserResponse> UpdateAsync(int id, User user);
+        Task<UserResponse> DeleteAsync(int id);
     }
 }
