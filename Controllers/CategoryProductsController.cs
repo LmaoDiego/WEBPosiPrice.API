@@ -7,7 +7,7 @@ using PosiPrice.API.Domain.Models;
 using PosiPrice.API.Domain.Services;
 using PosiPrice.API.Resources;
 
-namespace Supermarket.API.Controllers
+namespace PosiPrice.API.Controllers
 {
     [Route("/api/categories/{categoryId}/products")]
     public class CategoryProductsController

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PosiPrice.API.Domain.Resources;
+using PosiPrice.API.Resources;
 using PosiPrice.API.Domain.Services;
 using AutoMapper;
 using PosiPrice.API.Domain.Models;
-using PosiPrice.API.Resources;
+
 using PosiPrice.API.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -27,11 +27,7 @@ namespace PosiPrice.API.Controllers
             _mapper = mapper;
         }
 
-        [SwaggerOperation(
-            Summary = "List all categories",
-            Description = "List of categories",
-            OperationId = "ListAllCategories"
-            )]
+        
         [SwaggerResponse(200, "List of Categories", typeof(IEnumerable<CategoryResource>))]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<CategoryResource>), 200)]

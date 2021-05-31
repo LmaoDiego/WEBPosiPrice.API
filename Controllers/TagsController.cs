@@ -8,7 +8,7 @@ using PosiPrice.API.Domain.Services;
 using PosiPrice.API.Extensions;
 using PosiPrice.API.Resources;
 
-namespace Supermarket.API.Controllers
+namespace PosiPrice.API.Controllers
 {
     [Route("/api/[controller]")]
     public class TagsController : ControllerBase

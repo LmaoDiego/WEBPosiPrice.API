@@ -1,7 +1,7 @@
 using System;
 using AutoMapper;
 using PosiPrice.API.Domain.Models;
-using PosiPrice.API.Domain.Resources;
+
 using PosiPrice.API.Extensions;
 using PosiPrice.API.Resources;
 

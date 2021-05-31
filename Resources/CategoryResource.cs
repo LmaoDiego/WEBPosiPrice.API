@@ -1,5 +1,5 @@
 using System;
-namespace PosiPrice.API.Domain.Resources
+namespace PosiPrice.API.Resources
 {   //Informacion que solo el cliente necesite
     public class CategoryResource
     {

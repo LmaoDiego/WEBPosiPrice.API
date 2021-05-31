@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PosiPrice.API.Domain.Models;
-using PosiPrice.API.Domain.Resources;
+
 using PosiPrice.API.Domain.Services;
 using PosiPrice.API.Extensions;
 using PosiPrice.API.Resources;

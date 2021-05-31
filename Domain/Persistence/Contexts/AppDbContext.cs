@@ -2,6 +2,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using PosiPrice.API.Domain.Models;
 using PosiPrice.API.Extensions;
+
+
 namespace PosiPrice.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext

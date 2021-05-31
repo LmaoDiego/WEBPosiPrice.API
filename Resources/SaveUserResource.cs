@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PosiPrice.API.Domain.Resources
+namespace PosiPrice.API.Resources
 {   
     public class SaveUserResource
     {
